@@ -9,7 +9,7 @@ local TeleportService = game:GetService("TeleportService")
 local LocalPlayer = Players.LocalPlayer
 
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "AdminHub"
+ScreenGui.Name = "Panel"
 ScreenGui.Parent = CoreGui
 
 local ToggleButton = Instance.new("TextButton")
