@@ -9,7 +9,7 @@ local TeleportService = game:GetService("TeleportService")
 local LocalPlayer = Players.LocalPlayer
 
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "Panel"
+ScreenGui.Name = "AdminHub"
 ScreenGui.Parent = CoreGui
 
 local ToggleButton = Instance.new("TextButton")
@@ -28,7 +28,7 @@ end
 ToggleButton.Parent = ScreenGui
 ToggleButton.Size = UDim2.new(0, 50, 0, 50)
 ToggleButton.Position = UDim2.new(0, 10, 0, 10)
-ToggleButton.Text = "AdminHub"
+ToggleButton.Text = "Panel"
 ToggleButton.BackgroundColor3 = Color3.fromRGB(70, 130, 180)
 ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 ToggleButton.Font = Enum.Font.SourceSansBold
