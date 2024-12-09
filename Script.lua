@@ -55,7 +55,7 @@ Title.BackgroundTransparency = 1
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.Font = Enum.Font.SourceSansBold
 Title.TextSize = 24
-Title.Text = "AdminHub By NoobzyScripter V1.0"
+Title.Text = "AdminHub By NoobzyScripter V2.5"
 addUICorner(Title, 10)
 
 SpeedBox.Parent = MainFrame
@@ -207,6 +207,43 @@ createButton(MainFrame, "Rejoin Game", Color3.fromRGB(255, 140, 0), function()
     TeleportService:Teleport(game.PlaceId, LocalPlayer)
 end)
 
+local hitboxEnabled = false
+createButton(MainFrame, "Hitbox x6 lol ☠️ ", Color3.fromRGB(123, 104, 238), function()
+    hitboxEnabled = not hitboxEnabled
+    if LocalPlayer.Character then
+        for _, part in pairs(LocalPlayer.Character:GetDescendants()) do
+            if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
+                if hitboxEnabled then
+                    part.Size = part.Size * 6
+                    part.Massless = true
+                else
+                    part.Size = part.Size / 6
+                    part.Massless = false
+                end
+            end
+        end
+    end
+end)
+
+local toolSizeMultiplier = false
+
+createButton(MainFrame, "Tool Size x4 (Broken)", Color3.fromRGB(138, 43, 226), function()
+    toolSizeMultiplier = not toolSizeMultiplier
+    for _, tool in pairs(LocalPlayer.Backpack:GetChildren()) do
+        if tool:IsA("Tool") then
+            for _, part in pairs(tool:GetDescendants()) do
+                if part:IsA("BasePart") then
+                    if toolSizeMultiplier then
+                        part.Size = part.Size * 4
+                    else
+                        part.Size = part.Size / 4
+                    end
+                end
+            end
+        end
+    end
+end)
+
 local guiVisible = true
 ToggleButton.MouseButton1Click:Connect(function()
     guiVisible = not guiVisible
@@ -216,5 +253,4 @@ end)
 UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
     MainFrame.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y + 20)
 end)
-
 -- ¯⁠\⁠_⁠(⁠ツ⁠)⁠_⁠/⁠¯
