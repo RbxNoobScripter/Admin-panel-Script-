@@ -208,16 +208,16 @@ createButton(MainFrame, "Rejoin Game", Color3.fromRGB(255, 140, 0), function()
 end)
 
 local hitboxEnabled = false
-createButton(MainFrame, "Hitbox x6 lol ☠️ ", Color3.fromRGB(123, 104, 238), function()
+createButton(MainFrame, "Hitbox x8 lol ☠️ ", Color3.fromRGB(123, 104, 238), function()
     hitboxEnabled = not hitboxEnabled
     if LocalPlayer.Character then
         for _, part in pairs(LocalPlayer.Character:GetDescendants()) do
             if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
                 if hitboxEnabled then
-                    part.Size = part.Size * 6
+                    part.Size = part.Size * 8
                     part.Massless = true
                 else
-                    part.Size = part.Size / 6
+                    part.Size = part.Size / 8
                     part.Massless = false
                 end
             end
