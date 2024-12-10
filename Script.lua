@@ -214,10 +214,10 @@ createButton(MainFrame, "Hitbox x6 lol ☠️ ", Color3.fromRGB(123, 104, 238), 
         for _, part in pairs(LocalPlayer.Character:GetDescendants()) do
             if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
                 if hitboxEnabled then
-                    part.Size = part.Size * 6
+                    part.Size = part.Size * 3
                     part.Massless = true
                 else
-                    part.Size = part.Size / 6
+                    part.Size = part.Size / 3
                     part.Massless = false
                 end
             end
