@@ -144,6 +144,40 @@ createButton(MainFrame, "InfJump", Color3.fromRGB(50, 205, 50), function()
     end
 end)
 
+local gravityEnabled = true
+local gravityValue = workspace.Gravity
+
+createButton(MainFrame, "Toggle Gravity", Color3.fromRGB(255, 69, 0), function()
+    gravityEnabled = not gravityEnabled
+    if gravityEnabled then
+        workspace.Gravity = gravityValue -- Возвращаем к изначальному значению
+    else
+        workspace.Gravity = 0 -- Устанавливаем гравитацию в 0
+    end
+end)
+
+local GravityBox = Instance.new("TextBox")
+GravityBox.Parent = MainFrame
+GravityBox.Size = UDim2.new(1, -20, 0, 30)
+GravityBox.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+GravityBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+GravityBox.Font = Enum.Font.SourceSansBold
+GravityBox.TextSize = 14
+GravityBox.PlaceholderText = "Set Gravity Value"
+addUICorner(GravityBox, 10)
+
+GravityBox.FocusLost:Connect(function(enterPressed)
+    if enterPressed then
+        local gravity = tonumber(GravityBox.Text)
+        if gravity then
+            gravityValue = gravity
+            if gravityEnabled then
+                workspace.Gravity = gravityValue
+            end
+        end
+    end
+end)
+
 local noclip = false
 local noclipConnection
 createButton(MainFrame, "Noclip/Clip", Color3.fromRGB(30, 144, 255), function()
@@ -214,10 +248,10 @@ createButton(MainFrame, "Hitbox x6 lol ☠️ ", Color3.fromRGB(123, 104, 238), 
         for _, part in pairs(LocalPlayer.Character:GetDescendants()) do
             if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
                 if hitboxEnabled then
-                    part.Size = part.Size * 3
+                    part.Size = part.Size * 6
                     part.Massless = true
                 else
-                    part.Size = part.Size / 3
+                    part.Size = part.Size / 6
                     part.Massless = false
                 end
             end
@@ -244,6 +278,40 @@ createButton(MainFrame, "Tool Size x4 (Broken)", Color3.fromRGB(138, 43, 226), f
     end
 end)
 
+local spawnObjectsEnabled = true
+
+createButton(MainFrame, "Spawn Objects", Color3.fromRGB(0, 191, 255), function()
+    spawnObjectsEnabled = not spawnObjectsEnabled
+    if spawnObjectsEnabled then
+        local objectTypes = {"Ball", "Cube"}
+        local spawnObject = function()
+            if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                local humanoidRootPart = LocalPlayer.Character.HumanoidRootPart
+                local objectType = objectTypes[math.random(1, #objectTypes)] -- Рандомно выбираем тип объекта
+                local newObject
+
+                if objectType == "Ball" then
+                    newObject = Instance.new("Part")
+                    newObject.Shape = Enum.PartType.Ball
+                elseif objectType == "Cube" then
+                    newObject = Instance.new("Part")
+                end
+
+                if newObject then
+                    newObject.Size = Vector3.new(5, 5, 5)
+                    newObject.Position = humanoidRootPart.Position + humanoidRootPart.CFrame.LookVector * 5
+                    newObject.BrickColor = BrickColor.Random()
+                    newObject.Material = Enum.Material.SmoothPlastic
+                    newObject.Anchored = false
+                    newObject.Parent = workspace
+                end
+            end
+        end
+
+        spawnObject() -- Спавним объект сразу после нажатия на кнопку
+    end
+end)
+
 local guiVisible = true
 ToggleButton.MouseButton1Click:Connect(function()
     guiVisible = not guiVisible
@@ -253,4 +321,3 @@ end)
 UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
     MainFrame.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y + 20)
 end)
--- ¯⁠\⁠_⁠(⁠ツ⁠)⁠_⁠/⁠¯
