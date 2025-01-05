@@ -73,7 +73,7 @@ Title.BackgroundTransparency = 1
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.Font = Enum.Font.SourceSansBold
 Title.TextSize = 24
-Title.Text = "AdminHub By NoobzyScripter V2.5"
+Title.Text = "AdminHub By NoobzyScripter V3"
 addUICorner(Title, 10)
 
 SpeedBox.Parent = MainFrame
