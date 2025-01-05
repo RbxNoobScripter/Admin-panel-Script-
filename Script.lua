@@ -16,7 +16,7 @@ $$ | \$$ |\$$$$$$  |\$$$$$$  |$$$$$$$  |$$$$$$$$\       $$$$$$$  |\$$$$$$$\ $$ |
                                                                                           \__|                         
 Hello! JUST USE loadstring!
 Hello from tiktok 😁 
-]]
+]]--
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
