@@ -211,30 +211,46 @@ local function CreateSupportGui()
 
             ToggleButton.Parent = ScreenGui
             ToggleButton.Size = UDim2.new(0, 80, 0, 80)
-            ToggleButton.Position = UDim2.new(0.02, 0, 0.12, 0)
-            ToggleButton.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
+            ToggleButton.Position = UDim2.new(0.02, 0, 0.15, 0)
+            ToggleButton.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
             ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
             ToggleButton.Font = Enum.Font.Code
             ToggleButton.TextSize = 32
-            ToggleButton.Text = ""
-            ToggleButton.BorderColor3 = Color3.fromRGB(255, 100, 100)
+            ToggleButton.Text = "▶"
+            ToggleButton.BorderColor3 = Color3.fromRGB(255, 50, 50)
             ToggleButton.BorderSizePixel = 3
             ToggleButton.Visible = false
             ToggleButton.ZIndex = 3
             addUICorner(ToggleButton, 40)
-            local UIGradient = Instance.new("UIGradient")
-            UIGradient.Color = ColorSequence.new{
+
+            local ShadowFrame = Instance.new("Frame")
+            ShadowFrame.Size = UDim2.new(1, 10, 1, 10)
+            ShadowFrame.Position = UDim2.new(0, -5, 0, -5)
+            ShadowFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+            ShadowFrame.BackgroundTransparency = 0.5
+            ShadowFrame.ZIndex = 2
+            addUICorner(ShadowFrame, 40)
+            ShadowFrame.Parent = ToggleButton
+
+            local ToggleGradient = Instance.new("UIGradient")
+            ToggleGradient.Color = ColorSequence.new{
                 ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 50, 50)),
                 ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 0, 0))
             }
-            UIGradient.Rotation = 45
-            UIGradient.Parent = ToggleButton
+            ToggleGradient.Rotation = 45
+            ToggleGradient.Parent = ToggleButton
+
             task.spawn(function()
-                typeText(ToggleButton, ">>", 0.1)
+                while true do
+                    TweenService:Create(ToggleButton, TweenInfo.new(1, Enum.EasingStyle.Sine), {BackgroundColor3 = Color3.fromRGB(255, 50, 50)}):Play()
+                    wait(1)
+                    TweenService:Create(ToggleButton, TweenInfo.new(1, Enum.EasingStyle.Sine), {BackgroundColor3 = Color3.fromRGB(200, 0, 0)}):Play()
+                    wait(1)
+                end
             end)
 
             BackgroundFrame.Parent = ScreenGui
-            BackgroundFrame.Size = UDim2.new(0.35, 0, 0.75, 0)
+            BackgroundFrame.Size = UDim2.new(0.35, 0, 0.7, 0)
             BackgroundFrame.Position = UDim2.new(0.05, 0, 0.05, 0)
             BackgroundFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
             BackgroundFrame.BorderColor3 = Color3.fromRGB(255, 0, 0)
@@ -263,10 +279,10 @@ local function CreateSupportGui()
             end)
 
             MainFrame.Parent = ScreenGui
-            MainFrame.Size = UDim2.new(0.32, 0, 0.70, 0)
+            MainFrame.Size = UDim2.new(0.35, 0, 0.7, 0)
             MainFrame.Position = UDim2.new(0.065, 0, 0.075, 0)
             MainFrame.BackgroundTransparency = 1
-            MainFrame.ScrollBarThickness = 8
+            MainFrame.ScrollBarThickness = 5
             MainFrame.ScrollBarImageColor3 = Color3.fromRGB(255, 0, 0)
             MainFrame.Visible = false
             MainFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
@@ -275,7 +291,7 @@ local function CreateSupportGui()
 
             UIListLayout.Parent = MainFrame
             UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-            UIListLayout.Padding = UDim.new(0, 12)
+            UIListLayout.Padding = UDim.new(0, 10)
 
             Title.Parent = MainFrame
             Title.Size = UDim2.new(1, 0, 0, 40)
@@ -363,7 +379,7 @@ local function CreateSupportGui()
                         JumpBox.Text = ""
                         typeText(JumpBox, "> Enter JumpPower", 0.05)
                     end)
-                end)
+                end
             end)
 
             local function createButton(parent, text, color, callback)
@@ -384,23 +400,16 @@ local function CreateSupportGui()
                     typeText(Button, "> " .. text, 0.05)
                 end)
 
-                local touchStart = nil
-                Button.InputBegan:Connect(function(input)
-                    if input.UserInputType == Enum.UserInputType.Touch then
-                        touchStart = input
-                    end
-                end)
-
-                Button.InputEnded:Connect(function(input)
-                    if input.UserInputType == Enum.UserInputType.Touch and touchStart == input then
-                        ClickSound:Play()
-                        callback()
-                    end
-                end)
-
                 Button.MouseButton1Click:Connect(function()
                     ClickSound:Play()
                     callback()
+                end)
+
+                Button.InputEnded:Connect(function(input)
+                    if input.UserInputType == Enum.UserInputType.Touch then
+                        ClickSound:Play()
+                        callback()
+                    end
                 end)
 
                 Button.MouseEnter:Connect(function()
@@ -457,7 +466,7 @@ local function CreateSupportGui()
                         GravityBox.Text = ""
                         typeText(GravityBox, "> Set Gravity Value", 0.05)
                     end)
-                end)
+                end
             end)
 
             createButton(MainFrame, "Close Window", Color3.fromRGB(200, 0, 0), function()
@@ -642,7 +651,7 @@ local function CreateSupportGui()
                                 newObject.Material = Enum.Material.SmoothPlastic
                                 newObject.Anchored = false
                                 newObject.Parent = workspace
-                            locator
+                            end
                         end
                     end
                     spawnObject()
@@ -1099,35 +1108,6 @@ local function CreateSupportGui()
                 if teleportVisible then updateTeleportButtons() end
             end)
 
-            local touchStart = nil
-            ToggleButton.InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.Touch then
-                    touchStart = input
-                end
-            end)
-
-            ToggleButton.InputEnded:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.Touch and touchStart == input then
-                    ToggleSound:Play()
-                    if MainFrame.Visible then
-                        TweenService:Create(MainFrame, TweenInfo.new(0.3), {Position = UDim2.new(0.065, 0, -1, 0)}):Play()
-                        TweenService:Create(BackgroundFrame, TweenInfo.new(0.3), {Position = UDim2.new(0.05, 0, -1, 0)}):Play()
-                        wait(0.3)
-                        MainFrame.Visible = false
-                        BackgroundFrame.Visible = false
-                    else
-                        MainFrame.Visible = true
-                        BackgroundFrame.Visible = true
-                        MainFrame.Position = UDim2.new(0.065, 0, -1, 0)
-                        BackgroundFrame.Position = UDim2.new(0.05, 0, -1, 0)
-                        TweenService:Create(MainFrame, TweenInfo.new(0.3), {Position = UDim2.new(0.065, 0, 0.075, 0)}):Play()
-                        TweenService:Create(BackgroundFrame, TweenInfo.new(0.3), {Position = UDim2.new(0.05, 0, 0.05, 0)}):Play()
-                        wait(0.3)
-                        MainFrame.Active = true
-                    end
-                end
-            end)
-
             ToggleButton.MouseButton1Click:Connect(function()
                 ToggleSound:Play()
                 if MainFrame.Visible then
@@ -1145,6 +1125,28 @@ local function CreateSupportGui()
                     TweenService:Create(BackgroundFrame, TweenInfo.new(0.3), {Position = UDim2.new(0.05, 0, 0.05, 0)}):Play()
                     wait(0.3)
                     MainFrame.Active = true
+                end
+            end)
+
+            ToggleButton.InputEnded:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.Touch then
+                    ToggleSound:Play()
+                    if MainFrame.Visible then
+                        TweenService:Create(MainFrame, TweenInfo.new(0.3), {Position = UDim2.new(0.065, 0, -1, 0)}):Play()
+                        TweenService:Create(BackgroundFrame, TweenInfo.new(0.3), {Position = UDim2.new(0.05, 0, -1, 0)}):Play()
+                        wait(0.3)
+                        MainFrame.Visible = false
+                        BackgroundFrame.Visible = false
+                    else
+                        MainFrame.Visible = true
+                        BackgroundFrame.Visible = true
+                        MainFrame.Position = UDim2.new(0.065, 0, -1, 0)
+                        BackgroundFrame.Position = UDim2.new(0.05, 0, -1, 0)
+                        TweenService:Create(MainFrame, TweenInfo.new(0.3), {Position = UDim2.new(0.065, 0, 0.075, 0)}):Play()
+                        TweenService:Create(BackgroundFrame, TweenInfo.new(0.3), {Position = UDim2.new(0.05, 0, 0.05, 0)}):Play()
+                        wait(0.3)
+                        MainFrame.Active = true
+                    end
                 end
             end)
 
