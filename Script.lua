@@ -979,30 +979,3 @@ end)
 UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
     MainFrame.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y + 30)
 end)
-    if teleportVisible then updateTeleportButtons() end
-end)
-Players.PlayerRemoving:Connect(function(player)
-    if teleportVisible then updateTeleportButtons() end
-end)
-
-Players.PlayerAdded:Connect(function(player)
-    if teleportVisible then
-        updateTeleportButtons()
-    end
-end)
-
-Players.PlayerRemoving:Connect(function(player)
-    if teleportVisible then
-        updateTeleportButtons()
-    end
-end)
-
-local guiVisible = true
-ToggleButton.MouseButton1Click:Connect(function()
-    guiVisible = not guiVisible
-    MainFrame.Visible = guiVisible
-end)
-
-UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-    MainFrame.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y + 20)
-end)
