@@ -1,4 +1,3 @@
--- ASCII Art
 print([[
   _      ____  ____  ____  ____ ___  _   ____  ____  ____  _  ____  _____  _____ ____ 
 / \  /|/  _ \/  _ \/  _ \/_   \\  \//  / ___\/   _\/  __\/ \/  __\/__ __\/  __//  __\
@@ -7,7 +6,6 @@ print([[
 \_/  \|\____/\____/\____/\____//_/     \____/\____/\_/\_\\_/\_/     \_/  \____\\_/\_\
 ]])
 
--- Services
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
@@ -17,13 +15,12 @@ local TweenService = game:GetService("TweenService")
 
 local LocalPlayer = Players.LocalPlayer
 
--- Support GUI Function
 local function CreateSupportGui()
     local ScreenGui = Instance.new("ScreenGui")
     ScreenGui.Name = "SupportGui"
     ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui") or CoreGui
     ScreenGui.Enabled = true
-    ScreenGui.IgnoreGuiInset = true -- Ensure proper display on mobile
+    ScreenGui.IgnoreGuiInset = true
 
     local firstClick = true
 
@@ -34,7 +31,7 @@ local function CreateSupportGui()
     MainFrame.BorderSizePixel = 0
     MainFrame.Parent = ScreenGui
     MainFrame.ZIndex = 1
-    MainFrame.Active = false -- Prevent frame from intercepting touches
+    MainFrame.Active = false
 
     local UICorner = Instance.new("UICorner")
     UICorner.CornerRadius = UDim.new(0, 12)
@@ -108,18 +105,16 @@ local function CreateSupportGui()
                 end
             end)
 
-            -- Main AdminHub GUI
             local ScreenGui = Instance.new("ScreenGui")
             ScreenGui.Name = "AdminHub"
             ScreenGui.Parent = CoreGui
             ScreenGui.ResetOnSpawn = false
-            ScreenGui.IgnoreGuiInset = true -- Ensure proper display on mobile
+            ScreenGui.IgnoreGuiInset = true
 
             local UIScale = Instance.new("UIScale")
-            UIScale.Scale = UserInputService.TouchEnabled and 0.8 or 1 -- Scale down for mobile
+            UIScale.Scale = UserInputService.TouchEnabled and 0.8 or 1
             UIScale.Parent = ScreenGui
 
-            -- Sound Setup
             local ClickSound = Instance.new("Sound")
             ClickSound.SoundId = "rbxassetid://200632136"
             ClickSound.Volume = 0.5
@@ -130,7 +125,6 @@ local function CreateSupportGui()
             ToggleSound.Volume = 0.7
             ToggleSound.Parent = ScreenGui
 
-            -- Notification Function
             local function notify(message)
                 local notif = Instance.new("TextLabel")
                 notif.Text = message
@@ -149,7 +143,6 @@ local function CreateSupportGui()
                 task.delay(3, function() notif:Destroy() end)
             end
 
-            -- Enhanced Loading Screen
             local LoadingFrame = Instance.new("Frame")
             LoadingFrame.Size = UDim2.new(0.3, 0, 0.15, 0)
             LoadingFrame.Position = UDim2.new(0.5, -150, 0.5, -75)
@@ -193,18 +186,14 @@ local function CreateSupportGui()
             BarInnerCorner.CornerRadius = UDim.new(0, 5)
             BarInnerCorner.Parent = LoadingBar
 
-            -- Terminal Typing Effect Function
             local function typeText(label, text, speed)
                 label.Text = ""
-                for i = 1, #
-
-text do
+                for i = 1, #text do
                     label.Text = label.Text .. text:sub(i, i)
                     task.wait(speed or 0.05)
                 end
             end
 
-            -- UI Components
             local ToggleButton = Instance.new("TextButton")
             local BackgroundFrame = Instance.new("Frame")
             local MainFrame = Instance.new("ScrollingFrame")
@@ -220,27 +209,32 @@ text do
                 corner.Parent = instance
             end
 
-            -- Toggle Button (Red Orb) - Draggable and Proportional
             ToggleButton.Parent = ScreenGui
-            ToggleButton.Size = UDim2.new(0, 70, 0, 70)
-            ToggleButton.Position = UDim2.new(0.02, 0, 0.02, 0)
-            ToggleButton.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+            ToggleButton.Size = UDim2.new(0, 80, 0, 80)
+            ToggleButton.Position = UDim2.new(0.02, 0, 0.12, 0)
+            ToggleButton.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
             ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
             ToggleButton.Font = Enum.Font.Code
-            ToggleButton.TextSize = 28
+            ToggleButton.TextSize = 32
             ToggleButton.Text = ""
-            ToggleButton.BorderColor3 = Color3.fromRGB(255, 50, 50)
-            ToggleButton.BorderSizePixel = 2
+            ToggleButton.BorderColor3 = Color3.fromRGB(255, 100, 100)
+            ToggleButton.BorderSizePixel = 3
             ToggleButton.Visible = false
             ToggleButton.ZIndex = 3
-            addUICorner(ToggleButton, 35)
+            addUICorner(ToggleButton, 40)
+            local UIGradient = Instance.new("UIGradient")
+            UIGradient.Color = ColorSequence.new{
+                ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 50, 50)),
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 0, 0))
+            }
+            UIGradient.Rotation = 45
+            UIGradient.Parent = ToggleButton
             task.spawn(function()
                 typeText(ToggleButton, ">>", 0.1)
             end)
 
-            -- Background Frame (Main Visual)
             BackgroundFrame.Parent = ScreenGui
-            BackgroundFrame.Size = UDim2.new(0.35, 0, 0.7, 0)
+            BackgroundFrame.Size = UDim2.new(0.35, 0, 0.75, 0)
             BackgroundFrame.Position = UDim2.new(0.05, 0, 0.05, 0)
             BackgroundFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
             BackgroundFrame.BorderColor3 = Color3.fromRGB(255, 0, 0)
@@ -251,7 +245,6 @@ text do
             BackgroundFrame.Visible = false
             addUICorner(BackgroundFrame, 20)
 
-            -- Star Animation Inside BackgroundFrame
             StarImage.Parent = BackgroundFrame
             StarImage.Size = UDim2.new(0.15, 0, 0.15, 0)
             StarImage.Position = UDim2.new(0.5, -30, 0.5, -30)
@@ -269,12 +262,11 @@ text do
                 end
             end)
 
-            -- Main Frame (Scrolling UI)
             MainFrame.Parent = ScreenGui
-            MainFrame.Size = UDim2.new(0.32, 0, 0.65, 0)
+            MainFrame.Size = UDim2.new(0.32, 0, 0.70, 0)
             MainFrame.Position = UDim2.new(0.065, 0, 0.075, 0)
             MainFrame.BackgroundTransparency = 1
-            MainFrame.ScrollBarThickness = 5
+            MainFrame.ScrollBarThickness = 8
             MainFrame.ScrollBarImageColor3 = Color3.fromRGB(255, 0, 0)
             MainFrame.Visible = false
             MainFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
@@ -283,9 +275,8 @@ text do
 
             UIListLayout.Parent = MainFrame
             UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-            UIListLayout.Padding = UDim.new(0, 10)
+            UIListLayout.Padding = UDim.new(0, 12)
 
-            -- Title (Terminal Header)
             Title.Parent = MainFrame
             Title.Size = UDim2.new(1, 0, 0, 40)
             Title.BackgroundTransparency = 1
@@ -301,7 +292,6 @@ text do
                 typeText(Title, "> AdminHub V3 - NoobzyScripter", 0.05)
             end)
 
-            -- Speed Box
             SpeedBox.Parent = MainFrame
             SpeedBox.Size = UDim2.new(1, -10, 0, 45)
             SpeedBox.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
@@ -319,11 +309,10 @@ text do
                 typeText(SpeedBox, "> Enter WalkSpeed", 0.05)
             end)
 
-            -- Jump Box
             JumpBox.Parent = MainFrame
             JumpBox.Size = UDim2.new(1, -10, 0, 45)
             JumpBox.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-            SpeedBox.TextColor3 = Color3.fromRGB(255, 0, 0)
+            JumpBox.TextColor3 = Color3.fromRGB(255, 0, 0)
             JumpBox.Font = Enum.Font.Code
             JumpBox.TextSize = 18
             JumpBox.BackgroundTransparency = 0.3
@@ -337,7 +326,6 @@ text do
                 typeText(JumpBox, "> Enter JumpPower", 0.05)
             end)
 
-            -- Functionality for Speed and Jump
             SpeedBox.Focused:Connect(function()
                 SpeedBox.Text = ""
             end)
@@ -375,10 +363,9 @@ text do
                         JumpBox.Text = ""
                         typeText(JumpBox, "> Enter JumpPower", 0.05)
                     end)
-                end
+                end)
             end)
 
-            -- Create Button Function (Proportional and Polished)
             local function createButton(parent, text, color, callback)
                 local Button = Instance.new("TextButton")
                 Button.Parent = parent
@@ -397,18 +384,23 @@ text do
                     typeText(Button, "> " .. text, 0.05)
                 end)
 
-                -- PC click handler
-                Button.MouseButton1Click:Connect(function()
-                    ClickSound:Play()
-                    callback()
-                end)
-
-                -- Mobile touch handler
+                local touchStart = nil
                 Button.InputBegan:Connect(function(input)
                     if input.UserInputType == Enum.UserInputType.Touch then
+                        touchStart = input
+                    end
+                end)
+
+                Button.InputEnded:Connect(function(input)
+                    if input.UserInputType == Enum.UserInputType.Touch and touchStart == input then
                         ClickSound:Play()
                         callback()
                     end
+                end)
+
+                Button.MouseButton1Click:Connect(function()
+                    ClickSound:Play()
+                    callback()
                 end)
 
                 Button.MouseEnter:Connect(function()
@@ -421,7 +413,6 @@ text do
                 return Button
             end
 
-            -- Gravity Toggle
             local gravityEnabled = true
             local gravityValue = workspace.Gravity
             createButton(MainFrame, "Toggle Gravity", Color3.fromRGB(200, 0, 0), function()
@@ -430,7 +421,6 @@ text do
                 notify("Gravity " .. (gravityEnabled and "enabled" or "disabled"))
             end)
 
-            -- Gravity Box
             local GravityBox = Instance.new("TextBox")
             GravityBox.Parent = MainFrame
             GravityBox.Size = UDim2.new(1, -10, 0, 45)
@@ -467,10 +457,9 @@ text do
                         GravityBox.Text = ""
                         typeText(GravityBox, "> Set Gravity Value", 0.05)
                     end)
-                end
+                end)
             end)
 
-            -- Close Button
             createButton(MainFrame, "Close Window", Color3.fromRGB(200, 0, 0), function()
                 TweenService:Create(MainFrame, TweenInfo.new(0.3), {Position = UDim2.new(0.065, 0, -1, 0)}):Play()
                 TweenService:Create(BackgroundFrame, TweenInfo.new(0.3), {Position = UDim2.new(0.05, 0, -1, 0)}):Play()
@@ -479,9 +468,8 @@ text do
                 BackgroundFrame.Visible = false
             end)
 
-            -- ESP Toggle
             local espEnabled = false
-            local highlights = {} -- Table to track highlights for each player
+            local highlights = {}
 
             local function addHighlight(player)
                 if player ~= LocalPlayer and player.Character then
@@ -534,7 +522,6 @@ text do
                 removeHighlight(player)
             end)
 
-            -- Infinite Jump
             local infiniteJump = false
             local jumpConnection
             createButton(MainFrame, "InfJump", Color3.fromRGB(200, 0, 0), function()
@@ -553,7 +540,6 @@ text do
                 end
             end)
 
-            -- Noclip
             local noclip = false
             local noclipConnection
             createButton(MainFrame, "Noclip/Clip", Color3.fromRGB(200, 0, 0), function()
@@ -576,7 +562,6 @@ text do
                 end
             end)
 
-            -- God Mode
             local godMode = false
             createButton(MainFrame, "God Mode", Color3.fromRGB(200, 0, 0), function()
                 godMode = not godMode
@@ -594,7 +579,6 @@ text do
                 end
             end)
 
-            -- Hitbox
             local hitboxEnabled = false
             createButton(MainFrame, "Hitbox x6 lol ☠️ fe/op", Color3.fromRGB(200, 0, 0), function()
                 hitboxEnabled = not hitboxEnabled
@@ -614,7 +598,6 @@ text do
                 end
             end)
 
-            -- Tool Size Multiplier
             local toolSizeMultiplier = false
             createButton(MainFrame, "Tool Size x4 Fe", Color3.fromRGB(200, 0, 0), function()
                 toolSizeMultiplier = not toolSizeMultiplier
@@ -634,7 +617,6 @@ text do
                 notify("Tool size " .. (toolSizeMultiplier and "increased" or "restored"))
             end)
 
-            -- Spawn Objects
             local spawnObjectsEnabled = true
             createButton(MainFrame, "Spawn Objects *OP*", Color3.fromRGB(200, 0, 0), function()
                 spawnObjectsEnabled = not spawnObjectsEnabled
@@ -660,7 +642,7 @@ text do
                                 newObject.Material = Enum.Material.SmoothPlastic
                                 newObject.Anchored = false
                                 newObject.Parent = workspace
-                            end
+                            locator
                         end
                     end
                     spawnObject()
@@ -668,7 +650,6 @@ text do
                 end
             end)
 
-            -- Random Colors
             local randomizeColorsEnabled = false
             local randomizeConnection
             createButton(MainFrame, "Random Colors *OP*", Color3.fromRGB(200, 0, 0), function()
@@ -689,7 +670,6 @@ text do
                 end
             end)
 
-            -- Players Visibility
             local playersInvisible = false
             createButton(MainFrame, "Players Visibility", Color3.fromRGB(128, 128, 128), function()
                 playersInvisible = not playersInvisible
@@ -708,7 +688,6 @@ text do
                 notify("Players " .. (playersInvisible and "invisible" or "visible"))
             end)
 
-            -- AimBot
             local aimEnabled = false
             local aimIndicator = Instance.new("Frame")
             aimIndicator.Size = UDim2.new(0, 5, 0, 5)
@@ -759,7 +738,6 @@ text do
                 end
             end)
 
-            -- Fling
             local flingEnabled = false
             local flingConnection
             local function toggleFling()
@@ -784,43 +762,36 @@ text do
                 toggleFling()
             end)
 
-            -- Black Hole
             createButton(MainFrame, "Black hole fe(Working on Natural Disaster Survival", Color3.fromRGB(200, 0, 0), function()
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/RbxNoobScripter/Shhh-/refs/heads/main/Basic.lua"))()
                 notify("Black Hole script loaded")
             end)
 
-            -- Telekinesis
             createButton(MainFrame, "Telekinesis(Works in Brookhaven, Dahood, etc...)", Color3.fromRGB(200, 0, 0), function()
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/RbxNoobScripter/REAL-SIGMA-SCRIPT-/refs/heads/main/Main.lua"))()
                 notify("Telekinesis script loaded")
             end)
 
-            -- Fly
             createButton(MainFrame, "Fly", Color3.fromRGB(200, 0, 0), function()
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/RbxNoobScripter/FlyingSigma/refs/heads/main/Goida.lua"))()
                 notify("Fly script loaded")
             end)
 
-            -- SCP
             createButton(MainFrame, "SCP BY G10 FE", Color3.fromRGB(200, 0, 0), function()
                 loadstring(game:HttpGet("https://pastefy.app/YsJgITXR/raw"))()
                 notify("SCP script loaded")
             end)
 
-            -- Sus
             createButton(MainFrame, "Sus FE", Color3.fromRGB(200, 0, 0), function()
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/RbxNoobScripter/nahhhbrrr/refs/heads/main/base.lua"))()
                 notify("Sus script loaded")
             end)
 
-            -- InfiniteYield
             createButton(MainFrame, "InfiniteYield", Color3.fromRGB(200, 0, 0), function()
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
                 notify("InfiniteYield script loaded")
             end)
 
-            -- Screen Flash
             createButton(MainFrame, "Screen Flash", Color3.fromRGB(200, 0, 0), function()
                 local flash = Instance.new("Frame")
                 flash.Size = UDim2.new(1, 0, 1, 0)
@@ -844,7 +815,6 @@ text do
                 notify("Screen flashed")
             end)
 
-            -- Freecam
             createButton(MainFrame, "Freecam", Color3.fromRGB(200, 0, 0), function()
                 local freecamEnabled = not _G.freecamEnabled
                 _G.freecamEnabled = freecamEnabled
@@ -889,7 +859,6 @@ text do
                 end
             end)
 
-            -- Timer
             local activeTimerGui = nil
             createButton(MainFrame, "Timer", Color3.fromRGB(200, 0, 0), function()
                 if activeTimerGui then
@@ -1035,7 +1004,6 @@ text do
                 end)
             end)
 
-            -- Random Fonts
             createButton(MainFrame, "text", Color3.fromRGB(200, 0, 0), function()
                 local fonts = {
                     Enum.Font.SourceSans,
@@ -1068,7 +1036,6 @@ text do
                 notify("Fonts randomized")
             end)
 
-            -- XRay
             local isInvisible = false
             createButton(MainFrame, "XRay", Color3.fromRGB(200, 0, 0), function()
                 isInvisible = not isInvisible
@@ -1082,25 +1049,21 @@ text do
                 notify("XRay " .. (isInvisible and "enabled" or "disabled"))
             end)
 
-            -- SpamBot + Walk-Bot
             createButton(MainFrame, "SpamBot + Walk-Bot", Color3.fromRGB(200, 0, 0), function()
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/RbxNoobScripter/Admin-panel-Script-/refs/heads/main/qwerty.lua"))()
                 notify("SpamBot + Walk-Bot script loaded")
             end)
 
-            -- Lua IDE
             createButton(MainFrame, "Lua IDE", Color3.fromRGB(200, 0, 0), function()
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/RbxNoobScripter/Admin-panel-Script-/refs/heads/main/ytrewq1234556666.lua"))()
                 notify("Lua IDE script loaded")
             end)
 
-            -- Rejoin
             createButton(MainFrame, "Rejoin Game", Color3.fromRGB(200, 0, 0), function()
                 TeleportService:Teleport(game.PlaceId, LocalPlayer)
                 notify("Rejoining game...")
             end)
 
-            -- Teleport to Player
             local teleportVisible = false
             local teleportButtons = {}
             local function updateTeleportButtons()
@@ -1136,29 +1099,15 @@ text do
                 if teleportVisible then updateTeleportButtons() end
             end)
 
-            -- Toggle Animation
-            ToggleButton.MouseButton1Click:Connect(function()
-                ToggleSound:Play()
-                if MainFrame.Visible then
-                    TweenService:Create(MainFrame, TweenInfo.new(0.3), {Position = UDim2.new(0.065, 0, -1, 0)}):Play()
-                    TweenService:Create(BackgroundFrame, TweenInfo.new(0.3), {Position = UDim2.new(0.05, 0, -1, 0)}):Play()
-                    wait(0.3)
-                    MainFrame.Visible = false
-                    BackgroundFrame.Visible = false
-                else
-                    MainFrame.Visible = true
-                    BackgroundFrame.Visible = true
-                    MainFrame.Position = UDim2.new(0.065, 0, -1, 0)
-                    BackgroundFrame.Position = UDim2.new(0.05, 0, -1, 0)
-                    TweenService:Create(MainFrame, TweenInfo.new(0.3), {Position = UDim2.new(0.065, 0, 0.075, 0)}):Play()
-                    TweenService:Create(BackgroundFrame, TweenInfo.new(0.3), {Position = UDim2.new(0.05, 0, 0.05, 0)}):Play()
-                    wait(0.3)
-                    MainFrame.Active = true
+            local touchStart = nil
+            ToggleButton.InputBegan:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.Touch then
+                    touchStart = input
                 end
             end)
 
-            ToggleButton.InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.Touch then
+            ToggleButton.InputEnded:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.Touch and touchStart == input then
                     ToggleSound:Play()
                     if MainFrame.Visible then
                         TweenService:Create(MainFrame, TweenInfo.new(0.3), {Position = UDim2.new(0.065, 0, -1, 0)}):Play()
@@ -1179,11 +1128,30 @@ text do
                 end
             end)
 
+            ToggleButton.MouseButton1Click:Connect(function()
+                ToggleSound:Play()
+                if MainFrame.Visible then
+                    TweenService:Create(MainFrame, TweenInfo.new(0.3), {Position = UDim2.new(0.065, 0, -1, 0)}):Play()
+                    TweenService:Create(BackgroundFrame, TweenInfo.new(0.3), {Position = UDim2.new(0.05, 0, -1, 0)}):Play()
+                    wait(0.3)
+                    MainFrame.Visible = false
+                    BackgroundFrame.Visible = false
+                else
+                    MainFrame.Visible = true
+                    BackgroundFrame.Visible = true
+                    MainFrame.Position = UDim2.new(0.065, 0, -1, 0)
+                    BackgroundFrame.Position = UDim2.new(0.05, 0, -1, 0)
+                    TweenService:Create(MainFrame, TweenInfo.new(0.3), {Position = UDim2.new(0.065, 0, 0.075, 0)}):Play()
+                    TweenService:Create(BackgroundFrame, TweenInfo.new(0.3), {Position = UDim2.new(0.05, 0, 0.05, 0)}):Play()
+                    wait(0.3)
+                    MainFrame.Active = true
+                end
+            end)
+
             UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
                 MainFrame.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y + 20)
             end)
 
-            -- Loading Sequence
             task.spawn(function()
                 TweenService:Create(LoadingBar, TweenInfo.new(2, Enum.EasingStyle.Linear), {Size = UDim2.new(1, 0, 1, 0)}):Play()
                 task.wait(2)
